@@ -1,4 +1,5 @@
 // import 'dart:html';
+import 'dart:ffi';
 import 'dart:io';
 
 class Item {
@@ -13,6 +14,8 @@ class Item {
     print(
         "\n${this.id}\t${this.desc}\t\t\t${this.price}\t\t\t${this.quantity}\t\t\t${this.discount}");
   }
+
+  void uptquan(int input, int upquan) {}
 }
 
 String checkValue(var property, String prompt, int code) {
@@ -41,10 +44,15 @@ class Cart {
   late String desc;
   late double price;
   late int quantity;
-  late int discount; 
+  late int discount;
+  late double total = (price * (discount / 100)) * quantity;
 
   List<Item> products = [];
   Cart(this.id, this.desc, this.price, this.quantity, this.discount);
+
+  void read() {
+    print("\n$id\t$desc\t\t\t$price\t\t\t$discount\t\t\t$quantity\t\t\t$total");
+  }
 }
 
 void main() {
@@ -59,7 +67,7 @@ void main() {
         "\n\n\t\tPress 1 for Admin menu\n\n\t\tPress 2 for Customer menu\n\n\t\tPress 3 to exit system");
     print("\n\n\t|=======================================|");
     menu = stdin.readLineSync();
-    
+
     // late List<Storage> rows = [];
 
     if (menu == "1") {
@@ -78,7 +86,7 @@ void main() {
           // String confirm = '';
           // stdout.write("\nAre you sure you want to exit? (y/n): ");
           // confirm = stdin.readLineSync()!;
-          // if (confirm == 'y') 
+          // if (confirm == 'y')
           flag = false;
         } else if (code == "1") {
           print("Insert item function...");
@@ -157,10 +165,9 @@ void main() {
         if (shop == '0') {
           flag = false;
         } else if (shop == '1') {
-
           print("Add Item to cart");
 
-           print(
+          print(
               "\n======================================PRODUCT DISPLAY======================================");
           print(
               "===========================================================================================");
@@ -172,11 +179,9 @@ void main() {
               "===========================================================================================\n");
 
           addCart(products, cart);
-
         } else if (shop == '3') {
-
         } else if (shop == '4') {
-
+          chkout(products, cart);
         }
       } while (flag);
     } else if (menu == "3") {
@@ -185,30 +190,68 @@ void main() {
   } while (mainmenu);
 }
 
-  void addCart (List<Item> products , List<Cart> cart){
+void addCart(List<Item> products, List<Cart> cart) {
+  var id, desc, price, quan, disc, pquan;
 
-    var id, desc, price, quan, disc;
+  stdout.write("Enter the item ID: ");
+  int input = int.parse(stdin.readLineSync()!);
+  stdout.write("Enter quantity: ");
+  quan = int.parse(stdin.readLineSync()!);
 
-    stdout.write("Enter the item ID: ");
-    int input = int.parse(stdin.readLineSync()!);
-    stdout.write("Enter quantity: ");
-    quan = int.parse(stdin.readLineSync()!);
-
-    var exist = false;
-    products.forEach((Item item) {
-      if (item.id == input) {
-        id = item.id;
-        desc = item.desc;
-        price = item.price;
-        disc = item.discount;
-        exist = true;
-      }
-    });
-      if (exist) {
-      cart.add(Cart(id, desc, price, quan, disc));
-    } else {
-      print('Your Item Id was invalid');
-      return;
+  var exist = false;
+  products.forEach((Item item) {
+    if (item.id == input) {
+      id = item.id;
+      desc = item.desc;
+      price = item.price;
+      pquan = item.quantity;
+      disc = item.discount;
+      exist = true;
     }
+  });
+  if (exist && (pquan > quan)) {
+    //ERSYAD
+    cart.add(Cart(id, desc, price, quan, disc));
+//ERSYAD
+    products.forEach((Item item) {
+      item.quantity = pquan - quan;
+    });
+  } else {
+    print('Your Item Id was invalid or stock unavailable');
+    return;
   }
+}
 
+//ERSYAD
+void chkout(List<Item> products, List<Cart> cart) {
+  DateTime today = new DateTime.now();
+  String dateSlug =
+      "${today.year.toString()}-${today.month.toString().padLeft(2, '0')}-${today.day.toString().padLeft(2, '0')}";
+  String hourSlug =
+      "${today.hour.toString()}:${today.minute.toString().padLeft(2, '0')}:${today.second.toString().padLeft(2, '0')}";
+
+  double sum =0;
+
+  print("\nReceipt ID:\t");
+  print("C123");
+  print("\nDate:\t");
+  print(dateSlug);
+  print("\nTime:\t");
+  print(hourSlug);
+  print(
+      "\n======================================INVOICE======================================");
+  print(
+      "===========================================================================================");
+  print("ID\tDESCRIPTION\t\tPRICE(RM)\t\tDISCOUNT(%)\t\tQUANTITY\t\tTOTAL"); 
+   cart.forEach((element) {
+    element.read();
+  });
+  cart.forEach((Cart cart) {
+    sum += cart.total;
+  });
+  print("\nTOTAL PAYMENT\t\t\t");
+  print(sum);
+
+  print(
+      "===========================================================================================\n");
+}
