@@ -58,7 +58,15 @@ class Cart {
 void main() {
   var menu;
   bool mainmenu = true;
-  late List<Item> products = [];
+  //Initialize products list hakimi
+  late List<Item> products = [
+    Item(1, "Table", 140, 15, 10),
+    Item(2, "Bread", 4, 40, 0),
+    Item(3, "Iphone", 2000, 5, 15),
+    Item(4, "PS5", 4000, 3, 30),
+    Item(5, "Books", 35, 35, 10),
+    Item(6, "Eggs", 10, 100, 0)
+  ];
   late List<Cart> cart = [];
 
   do {
@@ -230,8 +238,10 @@ void chkout(List<Item> products, List<Cart> cart) {
   String hourSlug =
       "${today.hour.toString()}:${today.minute.toString().padLeft(2, '0')}:${today.second.toString().padLeft(2, '0')}";
 
-  double sum =0;
+  double sum = 0;
 
+  print(
+      "\n======================================CHECKOUT======================================");
   print("\nReceipt ID:\t");
   print("C123");
   print("\nDate:\t");
@@ -242,8 +252,8 @@ void chkout(List<Item> products, List<Cart> cart) {
       "\n======================================INVOICE======================================");
   print(
       "===========================================================================================");
-  print("ID\tDESCRIPTION\t\tPRICE(RM)\t\tDISCOUNT(%)\t\tQUANTITY\t\tTOTAL"); 
-   cart.forEach((element) {
+  print("ID\tDESCRIPTION\t\tPRICE(RM)\t\tDISCOUNT(%)\t\tQUANTITY\t\tTOTAL");
+  cart.forEach((element) {
     element.read();
   });
   cart.forEach((Cart cart) {
