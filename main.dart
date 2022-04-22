@@ -72,7 +72,21 @@ void main() {
     Item(3, "Iphone", 2000, 5, 15),
     Item(4, "PS5", 4000, 3, 30),
     Item(5, "Books", 35, 35, 10),
-    Item(6, "Eggs", 10, 100, 0)
+    Item(6, "Eggs", 10, 100, 0),
+    Item(7, "Pen", 8, 50, 0),
+    Item(8, "Laptop", 400, 10, 32),
+    Item(9, "Sweets", 1, 200, 0),
+    Item(10, "Eggs", 10, 100, 0),
+    Item(11, "Eggs", 10, 100, 0),
+    Item(12, "Eggs", 10, 100, 0),
+    Item(13, "Eggs", 10, 100, 0),
+    Item(14, "Eggs", 10, 100, 0),
+    Item(15, "Eggs", 10, 100, 0),
+    Item(16, "Eggs", 10, 100, 0),
+    Item(17, "Eggs", 10, 100, 0),
+    Item(18, "Eggs", 10, 100, 0),
+    Item(19, "Eggs", 10, 100, 0),
+    Item(20, "Eggs", 10, 100, 0),
   ];
   late List<Cart> cart = [];
 
@@ -273,11 +287,12 @@ void addCart(List<Item> products, List<Cart> cart) {
     return;
   }
 }
+
 //Ammar Arif
-void removeCart(List<Item> products, List<Cart> cart){
+void removeCart(List<Item> products, List<Cart> cart) {
   var id;
-  bool valid=false;
-  int quan; 
+  bool valid = false;
+  int quan;
   late int cquan, rmncart; //do not want assign var early
 
   stdout.write("Enter the item ID: ");
@@ -289,23 +304,31 @@ void removeCart(List<Item> products, List<Cart> cart){
     if (icart.id == input) {
       id = icart.id;
       cquan = icart.quantity;
-      rmncart = cquan-quan;
+      rmncart = cquan - quan;
       valid = true; //filter out input from user
+    }
+  });
+
+  if (valid && rmncart > 0) {
+    //minus item quantity in cart
+    cart.forEach((Cart icart) {
+      if (icart.id == input) {
+        id = icart.id;
+        icart.quantity = rmncart;
       }
     });
 
-    if(valid && rmncart > 0){
-      //minus item quantity in cart
-      cart.forEach((Cart icart) {
-        if (icart.id == input) {
-          id = icart.id;
-          icart.quantity = rmncart;  
-          }
-        });
-     
-      print("\nItem reduced from Cart!\n\n");
-    } 
-      
+    print("\nItem reduced from Cart!\n\n");
+  } else if (valid && rmncart == 0) {
+    //removeWhere xleh jadi kalau dalam for each..
+    cart.removeWhere((cart) => cart.id == input);
+
+    print("\nItem removed from Cart!\n\n");
+  } else if (valid && rmncart < 0) {
+    print("\nYour amount exceed the number of item you added!\n\n");
+  } else {
+    print("'Your Item Id was invalid!");
+  }
 }
 
 //ERSYAD
@@ -319,7 +342,7 @@ void chkout(List<Item> products, List<Cart> cart) {
   double sum = 0;
 
   print(
-      "\n======================================CHECKOUT======================================");
+      "\n======================================CHECKOUT========================================");
   print("\nReceipt ID:\t");
   print("C123");
   print("\nDate:\t");
@@ -327,9 +350,9 @@ void chkout(List<Item> products, List<Cart> cart) {
   print("\nTime:\t");
   print(hourSlug);
   print(
-      "\n======================================INVOICE======================================");
+      "\n======================================INVOICE========================================");
   print(
-      "===========================================================================================");
+      "=============================================================================================");
   print("ID\tDESCRIPTION\t\tPRICE(RM)\t\tDISCOUNT(%)\t\tQUANTITY\t\tTOTAL");
   cart.forEach((element) {
     element.read();
@@ -337,9 +360,30 @@ void chkout(List<Item> products, List<Cart> cart) {
   cart.forEach((Cart cart) {
     sum += cart.total;
   });
-  print("\nTOTAL PAYMENT\t\t\t");
-  print(sum);
+  double afgst = double.parse((sum * 1.06).toStringAsFixed(2));
+  print("\nGST\tTOTAL PAYMENT\t\t\t");
+  print("6%\t$afgst");
 
   print(
-      "===========================================================================================\n");
+      "=============================================================================================\n");
+//hakimi promt comfirm checkout
+  String confirm = '';
+  stdout.write("are you sure to check out , press y/n");
+  confirm = stdin.readLineSync()!;
+  if (confirm == 'y') {
+//  1.tolak item dari product through cart
+    cart.forEach((Cart cart) {
+      products.forEach((Item item) {
+        if (cart.id == item.id) {
+          item.quantity -= cart.quantity;
+        }
+      });
+    });
+
+    //2.clear cart
+    cart.clear();
+
+    //3.print thank you for buyin with us, come again
+    print("Thank You for Shopping with us. :)");
+  }
 }
