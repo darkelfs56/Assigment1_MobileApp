@@ -208,6 +208,22 @@ void main() {
           print(
               "==============================================================================================================\n");
         } else if (shop == '3') {
+          //Ammar Arif
+          print("Remove Item from cart");
+
+          print(
+              "\n======================================CART DISPLAY============================================================");
+          print(
+              "==============================================================================================================");
+          print(
+              "ID\tDESCRIPTION\t\tPRICE(RM)\tDISCOUNT(%)\tQUANTITY\tTotal Price(RM)");
+          cart.forEach((element) {
+            element.read();
+          });
+          print(
+              "==============================================================================================================\n");
+
+          removeCart(products, cart);
         } else if (shop == '4') {
           chkout(products, cart);
         }
@@ -256,12 +272,40 @@ void addCart(List<Item> products, List<Cart> cart) {
     print('Your Item Id was invalid or stock unavailable');
     return;
   }
-  //ERSYAD
-  products.forEach((Item item) {
-    if (item.id == input) {
-      item.quantity = pquan - quan;
-    }
-  });
+}
+//Ammar Arif
+void removeCart(List<Item> products, List<Cart> cart){
+  var id;
+  bool valid=false;
+  int quan; 
+  late int cquan, rmncart; //do not want assign var early
+
+  stdout.write("Enter the item ID: ");
+  int input = int.parse(stdin.readLineSync()!);
+  stdout.write("Enter quantity: ");
+  quan = int.parse(stdin.readLineSync()!);
+
+  cart.forEach((Cart icart) {
+    if (icart.id == input) {
+      id = icart.id;
+      cquan = icart.quantity;
+      rmncart = cquan-quan;
+      valid = true; //filter out input from user
+      }
+    });
+
+    if(valid && rmncart > 0){
+      //minus item quantity in cart
+      cart.forEach((Cart icart) {
+        if (icart.id == input) {
+          id = icart.id;
+          icart.quantity = rmncart;  
+          }
+        });
+     
+      print("\nItem reduced from Cart!\n\n");
+    } 
+      
 }
 
 //ERSYAD
