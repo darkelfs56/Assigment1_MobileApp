@@ -1,5 +1,5 @@
 // import 'dart:html';
-import 'dart:ffi';
+// import 'dart:ffi';
 import 'dart:io';
 
 class Item {
@@ -45,13 +45,20 @@ class Cart {
   late double price;
   late int quantity;
   late int discount;
-  late double total = (price * (discount / 100)) * quantity;
+  late double total;
 
   List<Item> products = [];
-  Cart(this.id, this.desc, this.price, this.quantity, this.discount);
+  Cart(this.id, this.desc, this.price, this.discount, this.quantity);
 
   void read() {
-    print("\n$id\t$desc\t\t\t$price\t\t\t$discount\t\t\t$quantity\t\t\t$total");
+    print(
+        "\n$id\t$desc\t\t\t$price\t\t$discount\t\t$quantity\t\t${totalprice()}");
+  }
+
+  double totalprice() {
+    this.total =
+        (this.price - (this.price * (this.discount / 100))) * this.quantity;
+    return this.total;
   }
 }
 
@@ -187,6 +194,18 @@ void main() {
               "===========================================================================================\n");
 
           addCart(products, cart);
+        } else if (shop == '2') {
+          print(
+              "\n======================================CART DISPLAY============================================================");
+          print(
+              "==============================================================================================================");
+          print(
+              "ID\tDESCRIPTION\t\tPRICE(RM)\tDISCOUNT(%)\tQUANTITY\tTotal Price(RM)");
+          cart.forEach((element) {
+            element.read();
+          });
+          print(
+              "==============================================================================================================\n");
         } else if (shop == '3') {
         } else if (shop == '4') {
           chkout(products, cart);
@@ -199,7 +218,8 @@ void main() {
 }
 
 void addCart(List<Item> products, List<Cart> cart) {
-  var id, desc, price, quan, disc, pquan;
+  var id, desc, price, disc, pquan;
+  int quan;
 
   stdout.write("Enter the item ID: ");
   int input = int.parse(stdin.readLineSync()!);
@@ -217,17 +237,30 @@ void addCart(List<Item> products, List<Cart> cart) {
       exist = true;
     }
   });
+
   if (exist && (pquan > quan)) {
-    //ERSYAD
-    cart.add(Cart(id, desc, price, quan, disc));
-//ERSYAD
-    products.forEach((Item item) {
-      item.quantity = pquan - quan;
+    //Amirul (avoid redundant item in cart)
+    var existed = false;
+    cart.forEach((Cart item) {
+      if (item.id == id) {
+        item.quantity += quan;
+        existed = true;
+      }
     });
+    if (!existed) {
+      //ERSYAD
+      cart.add(Cart(id, desc, price, disc, quan));
+    }
   } else {
     print('Your Item Id was invalid or stock unavailable');
     return;
   }
+  //ERSYAD
+  products.forEach((Item item) {
+    if (item.id == input) {
+      item.quantity = pquan - quan;
+    }
+  });
 }
 
 //ERSYAD
