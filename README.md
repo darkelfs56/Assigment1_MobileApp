@@ -1,6 +1,6 @@
-<h1>Group Name: <h1>
+<h2>Group Name: Androido</h2>
 
-<h2>Group Member Details:<h2>
+<h2>Group Member Details:</h2>
 <ul>
 <il>MUHAMMAD ILHAM HAKIMI BIN MOHAMAD NIZAM   1914359</il>
 <il>MUHAMMAD AKMAL BIN ANUAR                  1911967</il>
@@ -9,7 +9,7 @@
 <il>AHMAD AMMAR ARIF BIN ABDUL AZIZ           1919933</il>
   </ul>
   
-<h2>Task Distribution:<h2>
+<h2>Task Distribution:</h2>
 <table>
   <tr>
     <th>Name</th>
@@ -51,5 +51,5 @@
   </tr>
 </table>
 
-<h2>Point of Sales System<h2>
+<h2>Point of Sales System</h2>
 In our Point of Sales system that we developed, we provide two menu. The first one is the admin menu where it enable user to do add, remove and display item in stock. The other one is customer menu which enable the customer to add, remove and display item from cart. There is also the fourth option for proceeding to checkout where point of sales display is shown, all the item in the cart will listed out to sum up their total prices including GST.
