@@ -18,7 +18,7 @@ class Item {
   void uptquan(int input, int upquan) {}
 }
 
-// Akmal, check input function
+// MUHAMMAD AKMAL BIN ANUAR (1911967), check input function
 String checkValue(var property, String prompt, int code) {
   bool checkFlag = true;
   do {
@@ -66,7 +66,7 @@ class Cart {
 void main() {
   var menu;
   bool mainmenu = true;
-  //Initialize products list hakimi
+  //MUHAMMAD ILHAM HAKIMI BIN MOHAMAD NIZAM (1914359), Initialize products list
   late List<Item> products = [
     Item(1, "Table", 140, 15, 10),
     Item(2, "Bread", 4, 40, 0),
@@ -91,7 +91,7 @@ void main() {
   ];
   late List<Cart> cart = [];
 
-  // GUI Hakimi and Ammar
+  // MUHAMMAD ILHAM HAKIMI BIN MOHAMAD NIZAM (1914359) & AHMAD AMMAR ARIF BIN ABDUL AZIZ (1919933), GUI 
   do {
     print("\n\n\t|============ POS Prototype ============|");
     print(
@@ -100,7 +100,7 @@ void main() {
     menu = stdin.readLineSync();
 
     if (menu == "1") {
-      // Akmal, insert stock
+      //MUHAMMAD AKMAL BIN ANUAR (1911967), insert stock
       var code;
       bool flag = true;
       do {
@@ -140,7 +140,7 @@ void main() {
           print(
               "===========================================================================================\n");
         } else if (code == "3") {
-          // Amirul (remove stock)
+          // AMIRUL AFIQ BIN SHAHDAN (1916491), remove stock
           print(
               "\n======================================PRODUCT DISPLAY======================================");
           print(
@@ -191,7 +191,7 @@ void main() {
         if (shop == '0') {
           flag = false;
         } else if (shop == '1') {
-          //ERSYAD, add to cart
+          //MUHAMMAD ERSYAD GHIFARI (1623143), add to cart
           print("Add Item to cart");
 
           print(
@@ -207,7 +207,7 @@ void main() {
 
           addCart(products, cart);
         } else if (shop == '2') {
-          //Amirul (Display cart)
+          //AMIRUL AFIQ BIN SHAHDAN (1916491), Display cart
           print(
               "\n======================================CART DISPLAY============================================================");
           print(
@@ -220,7 +220,7 @@ void main() {
           print(
               "==============================================================================================================\n");
         } else if (shop == '3') {
-          //Ammar Arif, remove item from cart
+          //AHMAD AMMAR ARIF BIN ABDUL AZIZ (1919933), remove item from cart
           print("Remove Item from cart");
 
           print(
@@ -246,7 +246,7 @@ void main() {
   } while (mainmenu);
 }
 
-//ERSYAD , addCart function
+//MUHAMMAD ERSYAD GHIFARI (1623143), addCart function
 void addCart(List<Item> products, List<Cart> cart) {
   var id, desc, price, disc, pquan;
   int quan;
@@ -269,7 +269,7 @@ void addCart(List<Item> products, List<Cart> cart) {
   });
 
   if (exist && (pquan >= quan)) {
-    //Amirul (avoid redundant item in cart)
+    //AMIRUL AFIQ BIN SHAHDAN (1916491), avoid redundant item in cart
     var existed = false;
     cart.forEach((Cart item) {
       if (item.id == id) {
@@ -278,7 +278,7 @@ void addCart(List<Item> products, List<Cart> cart) {
       }
     });
     if (!existed) {
-      //ERSYAD
+      //MUHAMMAD ERSYAD GHIFARI (1623143), add item if not redundant
       cart.add(Cart(id, desc, price, disc, quan));
     }
   } else {
@@ -287,7 +287,7 @@ void addCart(List<Item> products, List<Cart> cart) {
   }
 }
 
-//Ammar Arif, removeCart function
+//AHMAD AMMAR ARIF BIN ABDUL AZIZ (1919933), removeCart function
 void removeCart(List<Item> products, List<Cart> cart) {
   bool valid = false;
   int quan;
@@ -315,7 +315,7 @@ void removeCart(List<Item> products, List<Cart> cart) {
     });
 
     print("\nItem reduced from Cart!\n\n");
-  }   //hakimi another threshold
+  }   //MUHAMMAD ILHAM HAKIMI BIN MOHAMAD NIZAM (1914359), another threshold
     else if (valid && rmncart == 0) {
     //removeWhere xleh jadi kalau dalam for each..
     cart.removeWhere((cart) => cart.id == input);
@@ -329,7 +329,7 @@ void removeCart(List<Item> products, List<Cart> cart) {
   }
 }
 
-//ERSYAD, checkout function
+//MUHAMMAD ERSYAD GHIFARI (1623143), checkout function
 void chkout(List<Item> products, List<Cart> cart) {
   DateTime today = new DateTime.now();
   String dateSlug =
@@ -367,7 +367,7 @@ void chkout(List<Item> products, List<Cart> cart) {
 
   print(
       "==============================================================================================================");
-//hakimi promt comfirm checkout
+//MUHAMMAD ILHAM HAKIMI BIN MOHAMAD NIZAM (1914359), prompt confirm checkout
   String confirm = '';
   stdout.write("are you sure to check out , press y/n\n");
   confirm = stdin.readLineSync()!;
