@@ -18,6 +18,7 @@ class Item {
   void uptquan(int input, int upquan) {}
 }
 
+// Akmal, check input function
 String checkValue(var property, String prompt, int code) {
   bool checkFlag = true;
   do {
@@ -90,6 +91,7 @@ void main() {
   ];
   late List<Cart> cart = [];
 
+  // GUI hakimi
   do {
     print("\n\n\t|============ POS Prototype ============|");
     print(
@@ -97,9 +99,8 @@ void main() {
     print("\n\n\t|=======================================|");
     menu = stdin.readLineSync();
 
-    // late List<Storage> rows = [];
-
     if (menu == "1") {
+      // Akmal, insert stock
       var code;
       bool flag = true;
       do {
@@ -108,14 +109,10 @@ void main() {
         print("Press 1 to add item.");
         print("Press 2 to display all items.");
         print("Press 3 to remove items.");
-        // print("Press 4 if you are done.");
+
         code = stdin.readLineSync();
 
         if (code == "0") {
-          // String confirm = '';
-          // stdout.write("\nAre you sure you want to exit? (y/n): ");
-          // confirm = stdin.readLineSync()!;
-          // if (confirm == 'y')
           flag = false;
         } else if (code == "1") {
           print("Insert item function...");
@@ -142,8 +139,8 @@ void main() {
           });
           print(
               "===========================================================================================\n");
-          // Amirul
         } else if (code == "3") {
+          // Amirul (remove stock)
           print(
               "\n======================================PRODUCT DISPLAY======================================");
           print(
@@ -157,28 +154,28 @@ void main() {
 
           print("\nInput Id of item that you want to remove...\n");
           var id;
+          bool wujud = false;
+          bool xsiap = true;
+          do {
+            id = int.parse(checkValue(id, "Item id: ", 1));
 
-          id = int.parse(checkValue(id, "Item id: ", 1));
-          products.removeWhere((item) => item.id == id);
-          print("\nItem Removed!\n\n");
+            products.forEach((Item stock) {
+              if (stock.id == id) {
+                wujud = true; //filter out input from user
+              }
+            });
+
+            if (wujud) {
+              products.removeWhere((item) => item.id == id);
+              print("\nItem Removed!\n\n");
+              xsiap = false;
+            } else{
+              print("Item doesn't exist\n\n");
+            }
+          } while (xsiap);
         }
-        // } else if (code == "4") {
-        //   rows.add(Storage(counter, products));
-        //   products = [];
-        //   counter++;
-        //   print("====================\n");
-        //   print("Next customer!");
-        // }
       } while (flag);
-
-      // for (int i = 1; i < counter; i++) {
-      //   print("Customer #$i items are:\n");
-      //   rows[i - 1].products.forEach((element) {
-      //     element.read();
-      //   });
-      // }
     } else if (menu == "2") {
-      // int counter = 1;
       var shop;
       bool flag = true;
 
@@ -194,6 +191,7 @@ void main() {
         if (shop == '0') {
           flag = false;
         } else if (shop == '1') {
+          //ERSYAD, add to cart
           print("Add Item to cart");
 
           print(
@@ -209,7 +207,7 @@ void main() {
 
           addCart(products, cart);
         } else if (shop == '2') {
-          //Amirul
+          //Amirul (Display cart)
           print(
               "\n======================================CART DISPLAY============================================================");
           print(
@@ -222,7 +220,7 @@ void main() {
           print(
               "==============================================================================================================\n");
         } else if (shop == '3') {
-          //Ammar Arif
+          //Ammar Arif, remove item from cart
           print("Remove Item from cart");
 
           print(
@@ -230,7 +228,7 @@ void main() {
           print(
               "==============================================================================================================");
           print(
-              "ID\tDESCRIPTION\t\tPRICE(RM)\tDISCOUNT(%)\tQUANTITY\tTotal Price(RM)");
+              "ID\t\t\t\tPRICE(RM)\tDISCOUNT(%)\tQUANTITY\tTotal Price(RM)");
           cart.forEach((element) {
             element.read();
           });
@@ -248,6 +246,7 @@ void main() {
   } while (mainmenu);
 }
 
+//ERSYAD , addCart function
 void addCart(List<Item> products, List<Cart> cart) {
   var id, desc, price, disc, pquan;
   int quan;
@@ -288,9 +287,8 @@ void addCart(List<Item> products, List<Cart> cart) {
   }
 }
 
-//Ammar Arif
+//Ammar Arif, removeCart function
 void removeCart(List<Item> products, List<Cart> cart) {
-  var id;
   bool valid = false;
   int quan;
   late int cquan, rmncart; //do not want assign var early
@@ -302,7 +300,6 @@ void removeCart(List<Item> products, List<Cart> cart) {
 
   cart.forEach((Cart icart) {
     if (icart.id == input) {
-      id = icart.id;
       cquan = icart.quantity;
       rmncart = cquan - quan;
       valid = true; //filter out input from user
@@ -313,7 +310,6 @@ void removeCart(List<Item> products, List<Cart> cart) {
     //minus item quantity in cart
     cart.forEach((Cart icart) {
       if (icart.id == input) {
-        id = icart.id;
         icart.quantity = rmncart;
       }
     });
@@ -331,7 +327,7 @@ void removeCart(List<Item> products, List<Cart> cart) {
   }
 }
 
-//ERSYAD
+//ERSYAD, checkout function
 void chkout(List<Item> products, List<Cart> cart) {
   DateTime today = new DateTime.now();
   String dateSlug =
@@ -342,7 +338,7 @@ void chkout(List<Item> products, List<Cart> cart) {
   double sum = 0;
 
   print(
-      "\n======================================CHECKOUT========================================");
+      "\n======================================CHECKOUT============================================================");
   print("\nReceipt ID:\t");
   print("C123");
   print("\nDate:\t");
@@ -350,10 +346,11 @@ void chkout(List<Item> products, List<Cart> cart) {
   print("\nTime:\t");
   print(hourSlug);
   print(
-      "\n======================================INVOICE========================================");
+      "\n============================================INVOICE============================================================");
   print(
-      "=============================================================================================");
-  print("ID\tDESCRIPTION\t\tPRICE(RM)\t\tDISCOUNT(%)\t\tQUANTITY\t\tTOTAL");
+      "==============================================================================================================");
+  print(
+      "ID\tDESCRIPTION\t\tPRICE(RM)\tDISCOUNT(%)\tQUANTITY\tTotal Price(RM)");
   cart.forEach((element) {
     element.read();
   });
@@ -361,14 +358,14 @@ void chkout(List<Item> products, List<Cart> cart) {
     sum += cart.total;
   });
   double afgst = double.parse((sum * 1.06).toStringAsFixed(2));
-  print("\nGST\tTOTAL PAYMENT\t\t\t");
-  print("6%\t$afgst");
+  print("\nGST\t\t6%\t\t\t\n");
+  print("TOTAL PAYMENT\tRM $afgst");
 
   print(
-      "=============================================================================================\n");
+      "==============================================================================================================");
 //hakimi promt comfirm checkout
   String confirm = '';
-  stdout.write("are you sure to check out , press y/n");
+  stdout.write("are you sure to check out , press y/n\n");
   confirm = stdin.readLineSync()!;
   if (confirm == 'y') {
 //  1.tolak item dari product through cart
