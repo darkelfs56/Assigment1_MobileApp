@@ -59,7 +59,7 @@ class Cart {
   double totalprice() {
     this.total =
         (this.price - (this.price * (this.discount / 100))) * this.quantity;
-    return this.total;
+    return double.parse(this.total.toStringAsFixed(2));
   }
 }
 
@@ -82,8 +82,8 @@ void main() {
     Item(12, "Maggie", 12, 30, 10),
     Item(13, "Tissue", 15, 120, 0),
     Item(14, "Water", 2, 70, 0),
-    Item(15, "Nintendo", 1400, 10, 40),
-    Item(16, "Baseball", 60, 20, 10),
+    Item(15, "Vacuum", 1400, 10, 40),
+    Item(16, "Towel", 60, 20, 10),
     Item(17, "Pepsi", 4, 30, 5),
     Item(18, "Cap", 20, 10, 0),
     Item(19, "Oreo", 6, 80, 10),
@@ -268,7 +268,7 @@ void addCart(List<Item> products, List<Cart> cart) {
     }
   });
 
-  if (exist && (pquan > quan)) {
+  if (exist && (pquan >= quan)) {
     //Amirul (avoid redundant item in cart)
     var existed = false;
     cart.forEach((Cart item) {
@@ -338,15 +338,21 @@ void chkout(List<Item> products, List<Cart> cart) {
   double sum = 0;
 
   print(
-      "\n======================================CHECKOUT============================================================");
-  print("\nReceipt ID:\t");
-  print("C123");
-  print("\nDate:\t");
-  print(dateSlug);
-  print("\nTime:\t");
-  print(hourSlug);
+      "\n============================================CHECKOUT==========================================================");
+  
   print(
-      "\n============================================INVOICE============================================================");
+      "\n============================================INVOICE===========================================================");
+  
+  // print("\nReceipt ID:\t");
+  // print("C123");
+  // print("\nDate:\t");
+  // print(dateSlug);
+  // print("\nTime:\t");
+  // print(hourSlug);
+
+  print("Receipt ID:\tDate:\t\tTime:");
+  print("C123\t\t$dateSlug\t$hourSlug");
+
   print(
       "==============================================================================================================");
   print(
@@ -358,7 +364,10 @@ void chkout(List<Item> products, List<Cart> cart) {
     sum += cart.total;
   });
   double afgst = double.parse((sum * 1.06).toStringAsFixed(2));
-  print("\nGST\t\t6%\t\t\t\n");
+
+  print(
+    "==============================================================================================================");
+  print("GST\t\t6%\t\t\t\n");
   print("TOTAL PAYMENT\tRM $afgst");
 
   print(
