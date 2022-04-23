@@ -91,7 +91,7 @@ void main() {
   ];
   late List<Cart> cart = [];
 
-  // GUI hakimi
+  // GUI Hakimi and Ammar
   do {
     print("\n\n\t|============ POS Prototype ============|");
     print(
@@ -315,9 +315,11 @@ void removeCart(List<Item> products, List<Cart> cart) {
     });
 
     print("\nItem reduced from Cart!\n\n");
-  } else if (valid && rmncart == 0) {
+  }   //hakimi another threshold
+    else if (valid && rmncart == 0) {
     //removeWhere xleh jadi kalau dalam for each..
     cart.removeWhere((cart) => cart.id == input);
+
 
     print("\nItem removed from Cart!\n\n");
   } else if (valid && rmncart < 0) {
