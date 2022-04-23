@@ -344,13 +344,6 @@ void chkout(List<Item> products, List<Cart> cart) {
   
   print(
       "\n============================================INVOICE===========================================================");
-  
-  // print("\nReceipt ID:\t");
-  // print("C123");
-  // print("\nDate:\t");
-  // print(dateSlug);
-  // print("\nTime:\t");
-  // print(hourSlug);
 
   print("Receipt ID:\tDate:\t\tTime:");
   print("C123\t\t$dateSlug\t$hourSlug");
