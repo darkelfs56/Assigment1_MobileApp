@@ -1,4 +1,4 @@
-<h2>Group Name: Androido</h2>
+<h2>Group 2</h2>
 
 <h2>Group Member Details:</h2>
 <ul>
