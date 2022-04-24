@@ -14,8 +14,6 @@ class Item {
     print(
         "\n${this.id}\t${this.desc}\t\t\t${this.price}\t\t\t${this.quantity}\t\t\t${this.discount}");
   }
-
-  void uptquan(int input, int upquan) {}
 }
 
 // MUHAMMAD AKMAL BIN ANUAR (1911967), check input function
@@ -48,7 +46,6 @@ class Cart {
   late int discount;
   late double total;
 
-  List<Item> products = [];
   Cart(this.id, this.desc, this.price, this.discount, this.quantity);
 
   void read() {
@@ -91,7 +88,7 @@ void main() {
   ];
   late List<Cart> cart = [];
 
-  // MUHAMMAD ILHAM HAKIMI BIN MOHAMAD NIZAM (1914359) & AHMAD AMMAR ARIF BIN ABDUL AZIZ (1919933), GUI 
+  // MUHAMMAD ILHAM HAKIMI BIN MOHAMAD NIZAM (1914359) & AHMAD AMMAR ARIF BIN ABDUL AZIZ (1919933), GUI
   do {
     print("\n\n\t|============ POS Prototype ============|");
     print(
@@ -104,6 +101,9 @@ void main() {
       var code;
       bool flag = true;
       do {
+        products.sort((a, b) {
+          return a.id - b.id;
+        });
         print("What do you want to do?\n");
         print("Press 0 to exit this menu.");
         print("Press 1 to add item.");
@@ -134,6 +134,9 @@ void main() {
           print(
               "===========================================================================================");
           print("ID\tDESCRIPTION\t\tPRICE(RM)\t\tQUANTITY\t\tDISCOUNT(%)");
+          products.sort((a, b) {
+            return a.id - b.id;
+          });
           products.forEach((element) {
             element.read();
           });
@@ -169,7 +172,7 @@ void main() {
               products.removeWhere((item) => item.id == id);
               print("\nItem Removed!\n\n");
               xsiap = false;
-            } else{
+            } else {
               print("Item doesn't exist\n\n");
             }
           } while (xsiap);
@@ -180,6 +183,9 @@ void main() {
       bool flag = true;
 
       do {
+        products.sort((a, b) {
+          return a.id - b.id;
+        });
         print("\nWelcome, to our Store!");
         print("Press 0 to exit this menu.");
         print("Press 1 to add item to cart.");
@@ -227,8 +233,7 @@ void main() {
               "\n======================================CART DISPLAY============================================================");
           print(
               "==============================================================================================================");
-          print(
-              "ID\t\t\t\tPRICE(RM)\tDISCOUNT(%)\tQUANTITY\tTotal Price(RM)");
+          print("ID\t\t\t\tPRICE(RM)\tDISCOUNT(%)\tQUANTITY\tTotal Price(RM)");
           cart.forEach((element) {
             element.read();
           });
@@ -315,11 +320,10 @@ void removeCart(List<Item> products, List<Cart> cart) {
     });
 
     print("\nItem reduced from Cart!\n\n");
-  }   //MUHAMMAD ILHAM HAKIMI BIN MOHAMAD NIZAM (1914359), another threshold
-    else if (valid && rmncart == 0) {
+  } //MUHAMMAD ILHAM HAKIMI BIN MOHAMAD NIZAM (1914359), another threshold
+  else if (valid && rmncart == 0) {
     //removeWhere xleh jadi kalau dalam for each..
     cart.removeWhere((cart) => cart.id == input);
-
 
     print("\nItem removed from Cart!\n\n");
   } else if (valid && rmncart < 0) {
@@ -341,7 +345,7 @@ void chkout(List<Item> products, List<Cart> cart) {
 
   print(
       "\n============================================CHECKOUT==========================================================");
-  
+
   print(
       "\n============================================INVOICE===========================================================");
 
@@ -350,8 +354,7 @@ void chkout(List<Item> products, List<Cart> cart) {
 
   print(
       "==============================================================================================================");
-  print(
-      "ID\tDESCRIPTION\t\tPRICE(RM)\tDISCOUNT(%)\tQUANTITY\tTotal Price(RM)");
+  print("ID\tDESCRIPTION\t\tPRICE(RM)\tDISCOUNT(%)\tQUANTITY\tTotal Price(RM)");
   cart.forEach((element) {
     element.read();
   });
@@ -361,7 +364,7 @@ void chkout(List<Item> products, List<Cart> cart) {
   double afgst = double.parse((sum * 1.06).toStringAsFixed(2));
 
   print(
-    "==============================================================================================================");
+      "==============================================================================================================");
   print("GST\t\t6%\t\t\t\n");
   print("TOTAL PAYMENT\tRM $afgst");
 
